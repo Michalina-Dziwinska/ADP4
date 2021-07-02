@@ -1,0 +1,10 @@
+﻿[
+  {
+    "flt.airline": "20304",
+    "count(distinct aprt.name)": 37
+  },
+  {
+    "flt.airline": "19977",
+    "count(distinct aprt.name)": 50
+  }
+]
