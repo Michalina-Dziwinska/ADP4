@@ -1,0 +1,5 @@
+MATCH (elej: Airport{name:'LAX'}) , (dejton:Airport{name:'DAY'})
+WITH dejton, elej
+MATCH p = (elej)<-[:ORIGIN|DESTINATION*..9]->(dejton)
+WITH p, dejton, REDUCE (s = 0 , n IN [k IN RANGE(1, LENGTH(p), 2) | NODES(p)[k]] | s + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) AS price ORDER BY price DESC
+RETURN p, dejton, price
