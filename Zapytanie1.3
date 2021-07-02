@@ -1,0 +1,4 @@
+MATCH (source:town {name: "Darjeeling"}), (target:peak {name: "Sandakphu"})
+MATCH p = (source)-[*]->(target)
+WITH p, REDUCE(x = 0, a IN RELATIONSHIPS(p) | x + a.distance) AS p_distance ORDER BY p_distance ASC
+RETURN p, p_distance
