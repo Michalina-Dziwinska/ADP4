@@ -1,0 +1,6 @@
+MATCH (elEj: Airport{name:'LAX'}), (destination:Airport)
+WITH elEj, destination
+MATCH p = (elEj)<-[:ORIGIN|DESTINATION*..5]->(destination)
+WITH p, destination, REDUCE (s = 0, n IN [k IN RANGE(1, LENGTH(p), 2) | NODES(p)[k]] | s + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) AS cost ORDER BY cost DESC
+WHERE cost < 3000
+RETURN p, cost, destination
