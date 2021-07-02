@@ -1,0 +1,10 @@
+MATCH (aprt1: Airport), (aprt2: Airport), (aprt3: Airport)
+WITH aprt1, aprt2, aprt3
+MATCH p = (aprt1)<-[:ORIGIN]-()-[:DESTINATION]->(aprt2)<-[:ORIGIN]-()-[:DESTINATION]->(aprt3)
+WHERE (aprt1<>aprt2 
+AND aprt1<>aprt3 
+AND aprt2<>aprt3)
+WITH p, 
+REDUCE (s = 0, n IN [k IN RANGE (1, LENGTH(p), 2) | NODES(p)[k]] | 
+s + [(n)<-[:ASSIGN]-(ticket) | ticket.price][0]) AS price ORDER BY price LIMIT 1
+RETURN p, price
