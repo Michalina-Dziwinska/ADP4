@@ -1,0 +1,4 @@
+MATCH (flt:Flight)-[:ORIGIN|:DESTINATION]-(aprt:Airport)  
+RETURN distinct flt.airline, 
+count(distinct aprt.name) 
+ORDER BY count(distinct aprt.name) 
