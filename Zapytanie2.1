@@ -1,0 +1,1 @@
+MATCH (flt: Flight)-[:ORIGIN]-(aprt: Airport) RETURN aprt, count(*) AS Flights ORDER BY count(*) DESC 
